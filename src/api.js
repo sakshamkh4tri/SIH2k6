@@ -14,7 +14,19 @@ async function request(path, options = {}) {
       ...options.headers,
     },
   });
-  const body = response.status === 204 ? null : await response.json();
+  // A failed Vercel rewrite can return a plain-text/HTML 404 page.  Parsing it
+  // as JSON hid the actual deployment problem behind "Unexpected token".
+  const rawBody = response.status === 204 ? "" : await response.text();
+  let body = null;
+  if (rawBody) {
+    try {
+      body = JSON.parse(rawBody);
+    } catch {
+      body = { message: response.ok
+        ? "The API returned an invalid response."
+        : "The API endpoint was not found. Check the Vercel deployment root and redeploy." };
+    }
+  }
   if (!response.ok) {
     if (response.status === 401) logout();
     throw new Error(body?.message || "The request could not be completed.");
