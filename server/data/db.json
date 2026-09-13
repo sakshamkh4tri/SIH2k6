@@ -1,0 +1,178 @@
+{
+  "users": [
+    {
+      "id": "user-admin",
+      "name": "System Administrator",
+      "email": "admin@projectpulse.local",
+      "passwordHash": "$2b$10$.HJ/Xoo7SPi.mv.FOuQOG.xEMFdi6ppZm8dJHUbY.yr2S.PwEWoXy",
+      "role": "admin",
+      "createdAt": "2026-09-08T15:59:09.014Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": "P104",
+      "name": "Pune Metro Line 4 Expansion Corridor",
+      "department": "Urban Dev & Metro Rail Dept",
+      "location": "Pune, Maharashtra",
+      "status": "Delayed",
+      "risk": "Critical",
+      "budgetCr": 6190,
+      "releasedCr": 4210,
+      "physicalProgress": 44,
+      "targetProgress": 68,
+      "scheduleLagDays": 32,
+      "estimatedCompletion": "2026-10-31",
+      "revisedCompletion": "2026-12-31",
+      "createdAt": "2026-09-08T15:59:09.014Z",
+      "updatedAt": "2026-09-08T15:59:09.014Z"
+    },
+    {
+      "id": "H26",
+      "name": "National Corridor Modernisation Programme",
+      "department": "Infrastructure Portfolio",
+      "location": "112 National Corridors",
+      "status": "At Risk",
+      "risk": "High",
+      "budgetCr": 18300,
+      "releasedCr": 12993,
+      "physicalProgress": 62,
+      "targetProgress": 83,
+      "scheduleLagDays": 21,
+      "estimatedCompletion": "2027-03-31",
+      "revisedCompletion": "2027-04-21",
+      "createdAt": "2026-09-08T15:59:09.014Z",
+      "updatedAt": "2026-09-08T15:59:09.014Z"
+    },
+    {
+      "id": "P221",
+      "name": "Bhuvan Urban Transit Link",
+      "department": "Transport & Highways",
+      "location": "Bengaluru, Karnataka",
+      "status": "In Progress",
+      "risk": "Medium",
+      "budgetCr": 2760,
+      "releasedCr": 2042,
+      "physicalProgress": 77,
+      "targetProgress": 85,
+      "scheduleLagDays": 8,
+      "estimatedCompletion": "2026-08-31",
+      "revisedCompletion": null,
+      "createdAt": "2026-09-08T15:59:09.014Z",
+      "updatedAt": "2026-09-08T15:59:09.014Z"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "ms-1",
+      "projectId": "P104",
+      "name": "Civil works",
+      "plannedProgress": 68,
+      "actualProgress": 52,
+      "status": "In Progress",
+      "dueDate": "2026-09-28",
+      "createdAt": "2026-09-08T15:59:09.014Z"
+    },
+    {
+      "id": "ms-2",
+      "projectId": "P104",
+      "name": "Viaduct packages",
+      "plannedProgress": 62,
+      "actualProgress": 41,
+      "status": "At Risk",
+      "dueDate": "2026-09-20",
+      "createdAt": "2026-09-08T15:59:09.014Z"
+    },
+    {
+      "id": "ms-3",
+      "projectId": "P104",
+      "name": "Station structures",
+      "plannedProgress": 52,
+      "actualProgress": 37,
+      "status": "At Risk",
+      "dueDate": "2026-10-13",
+      "createdAt": "2026-09-08T15:59:09.014Z"
+    },
+    {
+      "id": "ms-4",
+      "projectId": "P104",
+      "name": "Systems integration",
+      "plannedProgress": 30,
+      "actualProgress": 18,
+      "status": "Not Started",
+      "dueDate": "2026-11-27",
+      "createdAt": "2026-09-08T15:59:09.014Z"
+      }
+  ],
+  "auditSignals": [
+    {
+      "id": "sig-1",
+      "projectId": "P104",
+      "severity": "Critical",
+      "message": "Fund release ahead of work output",
+      "status": "Open",
+      "createdAt": "2026-09-08T15:59:09.014Z"
+    },
+    {
+      "id": "sig-2",
+      "projectId": "P104",
+      "severity": "High",
+      "message": "Contractor productivity below baseline",
+      "status": "Open",
+      "createdAt": "2026-09-08T15:59:09.014Z"
+    },
+    {
+      "id": "sig-3",
+      "projectId": "P104",
+      "severity": "High",
+      "message": "Milestone #4 forecast overdue",
+      "status": "Open",
+      "createdAt": "2026-09-08T15:59:09.014Z"
+    },
+    {
+      "id": "sig-4",
+      "projectId": "P104",
+      "severity": "Medium",
+      "message": "Design approval dependency",
+      "status": "Open",
+      "createdAt": "2026-09-08T15:59:09.014Z"
+    }
+  ],
+  "alerts": [
+    {
+      "id": "alert-1",
+      "projectId": "P104",
+      "title": "Suspicious disbursement: Metro Line 4",
+      "description": "Financial disbursement leads physical execution by 24%.",
+      "severity": "Critical",
+      "status": "Resolved",
+      "createdAt": "2026-09-08T15:59:09.014Z",
+      "resolvedAt": "2026-09-11T08:14:32.419Z",
+      "resolvedBy": "user-admin"
+    },
+    {
+      "id": "alert-2",
+      "projectId": "P221",
+      "title": "Contractor productivity variance",
+      "description": "Physical output is 11% below baseline for two consecutive cycles.",
+      "severity": "High",
+      "status": "Resolved",
+      "createdAt": "2026-09-08T15:59:09.014Z",
+      "resolvedAt": "2026-09-11T14:23:37.194Z",
+      "resolvedBy": "user-admin"
+    },
+    {
+      "id": "alert-3",
+      "projectId": "H26",
+      "title": "Milestone dependency risk",
+      "description": "Approval dependency may delay the next corridor package.",
+      "severity": "Medium",
+      "status": "Resolved",
+      "createdAt": "2026-09-08T15:59:09.014Z",
+      "resolvedAt": "2026-09-11T14:29:13.381Z",
+      "resolvedBy": "user-admin"
+    }
+  ],
+  "progressUpdates": [],
+  "conversations": []
+}
