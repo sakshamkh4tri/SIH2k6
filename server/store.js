@@ -1,10 +1,15 @@
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { MongoClient } from "mongodb";
 import { createSeed } from "./seed.js";
 
-const directory = path.join(path.dirname(fileURLToPath(import.meta.url)), "data");
+const bundledDirectory = path.join(path.dirname(fileURLToPath(import.meta.url)), "data");
+// Vercel's deployed source is read-only.  A temporary copy keeps demo mode
+// functional within a warm serverless instance; use MongoDB in production for
+// durable data.
+const directory = process.env.VERCEL ? path.join(os.tmpdir(), "projectpulse-data") : bundledDirectory;
 const file = path.join(directory, "db.json");
 const useMongo = process.env.DATABASE_MODE === "mongodb";
 let database;

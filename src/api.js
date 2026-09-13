@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+// In production the API is served by the same Vercel deployment.  Keeping the
+// development fallback avoids changing the existing `npm run dev` workflow.
+export const API_URL = (import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:4000/api" : "/api")).replace(/\/$/, "");
 const TOKEN_KEY = "projectpulse_token";
 const USER_KEY = "projectpulse_user";
 

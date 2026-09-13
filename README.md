@@ -26,6 +26,15 @@ Then open the Vite URL shown in the terminal.
 npm run build
 ```
 
+## Vercel deployment
+
+Deploy this repository as one Vercel project. The included `api/[...path].js`
+function serves the Express API at `/api`, so the deployed frontend uses the
+same origin and does not require a CORS workaround. In Vercel → Settings →
+Environment Variables, set a strong `JWT_SECRET`. For persistent production
+data, also set `DATABASE_MODE=mongodb` and provide `MONGODB_URI` (and optionally
+`MONGODB_DB_NAME`). Do not set `VITE_API_URL` for this single-deployment setup.
+
 ## Backend-ready structure
 
 The UI currently uses local mock data in `src/App.jsx`. Replace the `projects` array and action handlers with API calls later. Recommended next step:

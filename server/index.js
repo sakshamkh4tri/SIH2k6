@@ -10,15 +10,21 @@ import { initialiseStore, readDb, updateDb } from "./store.js";
 const app = express();
 const port = Number(process.env.PORT || 4000);
 const jwtSecret = process.env.JWT_SECRET || "development-only-change-me";
-const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173").split(",").map((value) => value.trim());
+const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173").split(",").map((value) => value.trim()).filter(Boolean);
 // Vite may select 5174, 5175, etc. when its default port is occupied.
 // Permit localhost development ports while retaining the explicit production allow-list.
 app.use(cors({
   origin(origin, callback) {
     const localDevelopmentOrigin = /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin || "");
-    if (!origin || allowedOrigins.includes(origin) || localDevelopmentOrigin) return callback(null, true);
+    // Same-origin Vercel requests need no CORS header, but this also supports
+    // preview deployments and a separately hosted frontend when CLIENT_URL is set.
+    const vercelDeploymentOrigin = /^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(origin || "");
+    if (!origin || allowedOrigins.includes(origin) || localDevelopmentOrigin || vercelDeploymentOrigin) return callback(null, true);
     return callback(new Error("Origin is not allowed by CORS"));
   },
+  methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 204,
 }));
 app.use(express.json({ limit: "1mb" }));
 
@@ -169,4 +175,10 @@ app.post("/api/assistant/query", requireAuth, (req, res) => { const { message, c
 app.use((err, _req, res, _next) => { if (err.message === "Project ID already exists") return res.status(409).json({ message: err.message }); console.error(err); res.status(500).json({ message: "Unexpected server error" }); });
 app.use((_req, res) => res.status(404).json({ message: "Endpoint not found" }));
 await initialiseStore();
-app.listen(port, () => console.log(`ProjectPulse API listening on http://localhost:${port}`));
+
+// Vercel imports this Express application as a serverless function.  Start a
+// TCP listener only for local development, otherwise every deployment tries to
+// bind a port and the function fails before it can answer the CORS preflight.
+if (!process.env.VERCEL) app.listen(port, () => console.log(`ProjectPulse API listening on http://localhost:${port}`));
+
+export default app;
